@@ -18,7 +18,7 @@ jobs:
       - name: build Hive-3.1.3
         env:
           JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
-        #run: mvn -DskipJSTests -DskipTests clean compile package install 
+        #run: mvn -DskipJSTests -DskipTests clean compile package install
         run: mvn -e -X package -Pdist -DskipTests -Dmaven.javadoc.skip=true
       - name: check TAR files
         run: ls -alhR ./packaging/target/
