@@ -226,14 +226,6 @@
         <checksumPolicy>warn</checksumPolicy>
       </releases>
     </repository>
-    <repository>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>mvnrepository</id>
-      <name>mvnrepository</name>
-      <url>https://maven.aliyun.com/repository/spring-plugin</url>
-    </repository>
   </repositories>
 
   <dependencyManagement>
