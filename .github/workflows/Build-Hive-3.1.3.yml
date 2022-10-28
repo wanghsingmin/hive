@@ -19,6 +19,6 @@ jobs:
         env:
           JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
         #run: mvn -DskipJSTests -DskipTests clean compile package install
-        run: mvn clean package -Pdist -DskipTests -Dmaven.javadoc.skip=true
+        run: mvn -e -X package -Pdist -DskipTests -Dmaven.javadoc.skip=true
       - name: check TAR files
         run: ls -alhR ./packaging/target/
