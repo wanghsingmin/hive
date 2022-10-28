@@ -16,7 +16,7 @@ jobs:
       - name: setup maven
         uses: s4u/maven-settings-action@v2.7.0
         with:
-          mirrors: '[{"id": "aliyunmaven", "name": "aliyunmaven", "mirrorOf": "*", "url": "https://maven.aliyun.com/repository/spring-plugin"}, {"id": "repo2", "name": "Mirror from Maven Repo2", "mirrorOf": "central", "url": "https://repo.spring.io/plugins-release/"}]'
+          mirrors: '[{"id": "aliyunmaven", "name": "aliyunmaven", "mirrorOf": "*", "url": "https://maven.aliyun.com/repository/spring-plugin"}]'
       - name: find Maven setting.xml files
         run: sudo find ./ -name 'settings.xml'
       - name: cat  Maven setting.xml files
