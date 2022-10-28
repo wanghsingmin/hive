@@ -21,4 +21,4 @@ jobs:
       #  #run: mvn -DskipJSTests -DskipTests clean compile package install
       #  run: mvn -e -X package -Pdist -DskipTests -Dmaven.javadoc.skip=true
       - name: check Maven setting.xml files
-        run: ls -alR .m2/
+        run: sudo find / -type d -name '.m2'
