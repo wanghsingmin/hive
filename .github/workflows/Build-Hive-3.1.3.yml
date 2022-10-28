@@ -24,5 +24,8 @@ jobs:
       #    JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
       #  #run: mvn -DskipJSTests -DskipTests clean compile package install
       #  run: mvn -e -X package -Pdist -DskipTests -Dmaven.javadoc.skip=true
-      - name: check Maven setting.xml files
-        run: sudo find / -type d -name '.m2'
+      - name: find Maven setting.xml files
+        run: sudo find ./ -name 'settings.xml'
+      - name: cat  Maven setting.xml files
+        run: cat /home/runner/.m2/settings.xml
+        
