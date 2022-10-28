@@ -226,6 +226,14 @@
         <checksumPolicy>warn</checksumPolicy>
       </releases>
     </repository>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>pentaho-aggdesigner-algorithm</id>
+      <name>pentaho-aggdesigner-algorithm-repo</name>
+      <url>https://public.nexus.pentaho.org/repository/proxy-public-3rd-party-release</url>
+    </repository>
   </repositories>
 
   <dependencyManagement>
