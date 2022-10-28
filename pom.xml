@@ -219,10 +219,7 @@
     <repository>
       <id>central</id>
       <name>central</name>
-      <!--
       <url>https://repo.maven.apache.org/maven2</url>
-      -->
-      <url>https://www.mvnrepository.com</url>
       <layout>default</layout>
       <releases>
         <enabled>true</enabled>
@@ -235,7 +232,7 @@
       </snapshots>
       <id>mvnrepository</id>
       <name>mvnrepository</name>
-      <url>https://www.mvnrepository.com</url>
+      <url>https://maven.aliyun.com/repository/central</url>
     </repository>
   </repositories>
 
