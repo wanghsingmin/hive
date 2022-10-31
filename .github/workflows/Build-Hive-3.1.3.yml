@@ -21,7 +21,7 @@ jobs:
     #  - name: find Maven setting.xml files
     #    run: sudo find ./ -name 'settings.xml'
     #  - name: cat  Maven setting.xml files
-    #    run: cat /home/runner/.m2/settings.xml
+    #    run: cat /home/runner/.m2/settings.xml 
       - name: install openjdk-8-jdk
         run: sudo apt-get -y install openjdk-8-jdk
       - name: build Hive-3.1.3
