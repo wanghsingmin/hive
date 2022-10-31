@@ -29,7 +29,7 @@ jobs:
           JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
         run: mvn clean package -Pdist -DskipTests -Dmaven.javadoc.skip=true
       - name: check TAR files
-        run: sudo find / -name "*.tar.gz"
+        run: sudo find ./ -name "*.tar.gz"
       - name: make folder for save assembly files
         run: mkdir ./Hive-Release-4.0.0
       - name: move Tarballs to release folder
@@ -82,7 +82,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./hive-release-4.0.0.tar.gz
-          asset_name: ackage_Hive-Release-4.0.0.v${{ github.run_number }}
+          asset_path: ./Package_Hive-Release-4.0.0.tar.gz
+          asset_name: Package_Hive-Release-4.0.0.v${{ github.run_number }}
           asset_content_type: application/gzip
         
