@@ -2,7 +2,7 @@ name: Hive-build-workflow
 on: 
   push:
     branches:
-      - 'master'
+      - 'march-rel/release-4.0.0'
 jobs:
   build-Hive:
     name: Build Hive-4.0.0 with Hadoop 3.3.1 and HBase 2.4.14
