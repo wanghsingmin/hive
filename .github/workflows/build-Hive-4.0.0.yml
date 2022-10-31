@@ -1,0 +1,88 @@
+name: Hive-build-workflow
+on: 
+  push:
+    branches:
+      - 'master'
+jobs:
+  build-Hive:
+    name: Build Hive-4.0.0 with Hadoop 3.3.1 and HBase 2.4.14
+    runs-on: ubuntu-20.04
+    #https://github.com/actions/runner-images 
+    steps:
+      - name: Checkout branche master
+        uses: actions/checkout@v3
+        with:
+          ref: march-rel/release-4.0.0
+    #  - name: setup maven
+    #    uses: s4u/maven-settings-action@v2.7.0
+    #    with:
+    #      mirrors: '[{"id": "central", "name": "central", "mirrorOf": "central", "url": "https://repo.maven.apache.org/maven2"}, {"id": "aliyun", "name": "aliyun", "mirrorOf": "*", "url": "https://maven.aliyun.com/repository/spring-plugin"}]'
+    #      #mirrors: '[{"id": "cloudera", "name": "Cloudera_Repo", "mirrorOf": "*", "url": "https://repository.cloudera.com/artifactory/repo/"}]'
+    #  - name: find Maven setting.xml files
+    #    run: sudo find ./ -name 'settings.xml'
+    #  - name: cat  Maven setting.xml files
+    #    run: cat /home/runner/.m2/settings.xml 
+      - name: install openjdk-8-jdk
+        run: sudo apt-get -y install openjdk-8-jdk
+      - name: build Hive-4.0.0
+        env:
+          JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+        run: mvn clean package -Pdist -DskipTests -Dmaven.javadoc.skip=true
+      - name: check TAR files
+        run: sudo find ./ -name "*.tar.gz"
+      - name: make folder for save assembly files
+        run: mkdir ./Hive-Release-4.0.0
+      - name: move Tarballs to release folder
+        run: cp /home/runner/work/hive/hive/packaging/target/apache-hive*.tar.gz ./Hive-Release-4.0.0/
+      - name: move standalone-metastore Tarballs to release folder
+        run: cp /home/runner/work/hive/hive/standalone-metastore/metastore-server/target/*.tar.gz ./Hive-Release-4.0.0/
+      - name: move standalone-metastore Tarballs to release folder
+        run: cp /home/runner/work/hive/hive/standalone-metastore/target/*.tar.gz ./Hive-Release-4.0.0/
+      - name: check Hive-Release-4.0.0 TAR files
+        run: ls -al ./Hive-Release-4.0.0/
+      - name: upload-artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Package_Hive-Release-4.0.0
+          path: ./Hive-Release-4.0.0
+  release-project:
+    name: Release Project Apache Hive
+    needs: build-Hive
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Create Artifact files path
+        run: mkdir ./artifacts
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with: 
+          name: Package_Hive-Release-4.0.0
+          path: ./artifacts
+      - name: check Download Artifact path 
+        run: ls -alh -R ./
+      - name: Archive Release Content
+        uses: thedoctor0/zip-release@main
+        with:
+          type: tar
+          filename: Package_Hive-Release-4.0.0.tar.gz
+          path: ./artifacts
+          directory: './'
+      - name: check Archive files path
+        run: ls -alh -R ./
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: hive-release-4.0.0.v${{ github.run_number }}
+          release_name: Hive-release-4.0.0.v${{ github.run_number }}
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Package_Hive-Release-4.0.0.tar.gz
+          asset_name: Package_Hive-Release-4.0.0.v${{ github.run_number }}
+          asset_content_type: application/gzip
+        
