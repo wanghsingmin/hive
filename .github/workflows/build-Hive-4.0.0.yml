@@ -1,4 +1,4 @@
-name: Hive-build-workflow
+name: 'Hive-build-workflow 4.0.0 with Hadoop 3.3.1 and HBase 2.4.14'
 on: 
   push:
     branches:
